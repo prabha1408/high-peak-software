@@ -1,0 +1,53 @@
+g = dict()                                                                  
+file1 = open('sample_input.txt','r')                                                  
+
+for line in file1:                                                             
+    if line != '\n':                                                    
+        a = line.split(":")                                                         
+        a[1] = a[1][1:]                                                             
+        if a[1] != "":                                                              
+            if a[1][-1] == "\n":                                        
+                a[1] = a[1][:-1]
+            g[a[0]] = int(a[1])                                                     
+            
+file1.close()                                                                  
+
+
+member = g["Number of employees"]                                                    
+del g["Number of employees"]                                                    
+
+
+sorted_value = sorted(g.values())                                                            
+
+length=len(sorted_value)                                                                  
+min = sorted_value[-1] - sorted_value[0]                                                              
+index=0                                                                                 
+for i in range((length-member)+1):                                                        
+    k = sorted_value[i+(member-1)] - sorted_value[i]                                                       
+    if k<min:                                                       
+        min=k                                                               
+        index=i                                                                         
+
+        
+file2 = open('sample_output.txt','w')                                                      
+file2.write("The goodies selected for distribution are:\n")                   
+file2.write("\n")
+for i in range(index,index+member):                                                              
+    for j in g.keys():                                                                                                                     
+        if g[j] == sorted_value[i]:                                  
+            file2.write(j+": ")                                               
+            file2.write(str(g[j]))                                            
+            file2.write("\n")
+            break
+file2.write("\n")
+file2.write("And the difference between the chosen goodie with highest price and the lowest price is ")
+file2.write(str(min))                                                        
+file2.close()
+
+                  
+    
+    
+        
+    
+    
+    
